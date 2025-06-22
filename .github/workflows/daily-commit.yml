@@ -19,11 +19,10 @@ jobs:
 
       - name: Commit update by 24f1002326@ds.study.iitm.ac.in
         run: |
-          # Append a timestamp to DAILY_UPDATE.md (creates file if missing)
           echo "Last update: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> DAILY_UPDATE.md
           git add DAILY_UPDATE.md
-          git commit -m "chore: daily automated update"
-
+          git commit -m "chore: daily automated update" || echo "Nothing to commit"
+      
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
