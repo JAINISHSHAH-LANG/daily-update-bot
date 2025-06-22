@@ -1,6 +1,8 @@
 name: Daily Automated Commit
 
 on:
+Add manual trigger to GitHub Actions workflow
+
   schedule:
     - cron: '0 6 * * *'  # Runs daily at 06:00 UTC
   workflow_dispatch:      # ✅ Enables manual trigger
