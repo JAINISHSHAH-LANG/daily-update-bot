@@ -1,0 +1,30 @@
+name: Daily Automated Commit
+
+on:
+  schedule:
+    # Runs every day at 06:00 UTC
+    - cron: '0 6 * * *'
+
+jobs:
+  daily_update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Git user
+        run: |
+          git config user.name "devsync-automation"
+          git config user.email "24f1002326@ds.study.iitm.ac.in"
+
+      - name: Commit update by 24f1002326@ds.study.iitm.ac.in
+        run: |
+          # Append a timestamp to DAILY_UPDATE.md (creates file if missing)
+          echo "Last update: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> DAILY_UPDATE.md
+          git add DAILY_UPDATE.md
+          git commit -m "chore: daily automated update"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
