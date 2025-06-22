@@ -2,8 +2,8 @@ name: Daily Automated Commit
 
 on:
   schedule:
-    # Runs every day at 06:00 UTC
-    - cron: '0 6 * * *'
+    - cron: '0 6 * * *'  # Runs daily at 06:00 UTC
+  workflow_dispatch:      # ✅ Enables manual trigger
 
 jobs:
   daily_update:
@@ -22,7 +22,7 @@ jobs:
           echo "Last update: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> DAILY_UPDATE.md
           git add DAILY_UPDATE.md
           git commit -m "chore: daily automated update" || echo "Nothing to commit"
-      
+
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
